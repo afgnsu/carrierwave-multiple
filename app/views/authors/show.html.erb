@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Author's name:</strong>
+  <%= @author.name %>
+</p>
+
+<p>
+  <strong>Images:</strong><br>
+  <% @author.images.each do |image| %>
+  	<%# image_tag image.image_url(:authors_image) %>
+  	<%= image_tag image.image_url(:medium) %>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_author_path(@author) %> |
+<%= link_to 'Back', authors_path %>
+

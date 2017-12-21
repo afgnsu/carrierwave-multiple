@@ -1,0 +1,54 @@
+<header class="header">
+  Multiple files upload with Carrierwave.
+</header>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Author</th>
+      <th>Images</th>
+      <th>Img Count</th>
+      <th>Created at</th>
+      <th>Manipulate</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @authors.each do |author| %>
+      <tr>
+        <td><%= author.id %></td>
+        <td><%= author.name %></td>
+        <td>
+          <%# if author.images.present? %>
+          <%# image_tag author.images[0].thumb %>
+          <%# author.images.present? ? image_tag(author.images.first.image_url(:thumb)) : image_tag('/default.jpg', style: 'height: 60px; width: 60xp;') %>
+
+          <% if author.images.present? %>
+
+            <% author.images.each_with_index do |i,index| %>
+              <%# index+1 %>
+              <%= image_tag i.image_url(:thumb) %>
+            <% end %>
+
+          <% else %>
+
+            <%= image_tag('/default.jpg', style: 'height: 60px; width: 60xp;') %>
+
+          <% end %>
+
+        </td>
+        <td align=center><%= (author.images.count > 0) ? "#{author.images.count}張" : "無" %></td>
+        <td><%= author.created_at.strftime("%d %b. %Y") %></td>
+        <td><%= link_to 'Show', author %>
+        | <%= link_to 'Edit', edit_author_path(author) %>
+        | <%= link_to 'Destroy', author, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="link-wrapper">
+  <%= link_to 'New', new_author_path, class: "new-author-link" %>
+</div>
